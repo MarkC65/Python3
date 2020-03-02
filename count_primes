@@ -1,0 +1,15 @@
+def count_primes(num):
+    l=[1]*(num+1)
+    l[0]=l[1]=0
+    n=2
+    while n<=(num**0.5):
+        if l[n]==1:
+            i=n*2
+            while i<=num:
+                l[i]=0
+                i+=n
+        n+=1
+    return l.count(1)
+
+# Check 25 primes up to 100
+count_primes(100)
