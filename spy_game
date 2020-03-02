@@ -1,0 +1,22 @@
+# SPY GAME: Write a function that takes in a list of integers and returns True if it contains 007 in order
+# spy_game([1,2,4,0,0,7,5]) --> True
+# spy_game([1,0,2,4,0,5,7]) --> True
+# spy_game([1,7,2,0,4,5,0]) --> False
+
+def spy_game(nums):
+    if 0 in nums:
+        f=nums.index(0)
+        if 0 in nums[f+1:]:
+            s=nums.index(0,f+1)
+            if 7 in nums[s+1:]:
+                return True
+    return False
+
+# Check
+spy_game([1,2,4,0,0,7,5])
+
+# Check
+spy_game([1,0,2,4,0,5,7])
+
+# Check
+spy_game([1,7,2,0,4,5,0])
