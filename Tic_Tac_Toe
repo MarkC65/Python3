@@ -1,0 +1,101 @@
+# Milestone Project 1
+
+# Your assignment: Create a Tic Tac Toe game. You are free to use any IDE you like.
+
+# Here are the requirements:
+
+# 2 players should be able to play the game (both sitting at the same computer)
+# The board should be printed out every time a player makes a move
+# You should be able to accept input of the player position and then place a symbol on the board
+
+from IPython.display import clear_output
+
+def display_board(b=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],p1='X',p2='O'):
+    clear_output()
+    print('Player 1 has chosen '+p1+'; Player 2 will play as '+p2+'\n')
+    print('   |   |   ')
+    print(f' {b[7]} | {b[8]} | {b[9]} ')
+    print('   |   |   ')
+    print('-'*11)
+    print('   |   |   ')
+    print(f' {b[4]} | {b[5]} | {b[6]} ')
+    print('   |   |   ')
+    print('-'*11)
+    print('   |   |   ')
+    print(f' {b[1]} | {b[2]} | {b[3]} ')
+    print('   |   |   ')
+
+def game_has_ended(b=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],ap=['1','2','3','4','5','6','7','8','9']):
+    # Check Rows
+    if b[1]==b[2]==b[3] or b[4]==b[5]==b[6] or b[7]==b[8]==b[9]:
+        return 'Win'
+    #Check Columns
+    if b[1]==b[4]==b[7] or b[2]==b[5]==b[8] or b[3]==b[6]==b[9]:
+        return 'Win'
+    #Check Diagonals
+    if b[1]==b[5]==b[9] or b[3]==b[5]==b[7]:
+        return 'Win'
+    if len(ap)==0:
+        return 'Draw'
+    return ''
+
+while True:
+    board=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    available_pos=['1','2','3','4','5','6','7','8','9']
+    p1_char=''
+    while p1_char not in ['X','x','O','o']:
+        clear_output()
+        p1_char=input('Player 1 - Choose X or O:')
+    p1_char=p1_char.upper()
+    if p1_char=='X':
+        p2_char='O'
+    else:
+        p2_char='X'
+    print('Player 1 has chosen '+p1_char+'; Player 2 will play as '+p2_char)
+
+    game_over=False
+    turn=1
+    p1=True
+    while not game_over:
+        display_board(board,p1_char,p2_char)
+        # Have Player Enter Position
+        if p1:
+            prompt='Player 1, choose your position (valid positions are: '
+        else:
+            prompt='Player 2, choose your position (valid positions are: '
+        for i in sorted(available_pos):
+            prompt=prompt+i+','
+        prompt=prompt[:len(prompt)-1]+')'
+        pos='0'
+        while pos not in available_pos:
+            pos=input(prompt)
+        if p1:
+            board[int(pos)]=p1_char
+        else:
+            board[int(pos)]=p2_char
+        available_pos.remove(pos)
+        result=game_has_ended(board,available_pos)
+        if result=='Win' or result=='Draw':
+            break
+        p1=not p1
+        turn+=1
+    display_board(board,p1_char,p2_char)
+    # Detertmine if draw or win
+    if result=='Win':
+        res_text='\nCongratulations '
+        if p1:
+            res_text=res_text+'Player 1 - you have WON in '+str(turn)+ ' moves !!'
+        else:
+            res_text=res_text+'Player 2 - you have WON in '+str(turn)+ ' moves !!'
+        print(res_text)
+    else:
+        print('\nDRAW !  Better Luck next time !\n')
+        
+    #Ask if they want to play again
+    play_again=''
+    while play_again not in ['Y','y','N','n']:
+        play_again=input('Play Again (Y/N):')
+        play_again = play_again[0].upper()
+    if play_again == 'N':
+        print('\nThanks for playing - it was FUN !')
+        break
