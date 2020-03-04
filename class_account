@@ -1,0 +1,27 @@
+class Account:
+    
+    def __init__(self,owner='default_owner',init_deposit=0):
+        self.owner = owner
+        self.balance = init_deposit
+        
+    def __str__(self):
+        return 'Account owner:   '+self.owner+'\n'+'Account balance: $'+str(self.balance)
+    
+    def owner():
+        print(self.owner)
+    
+    def balance():
+        print(self.balance)
+    
+    def deposit(self,value):
+        if value>=0:
+            self.balance += value
+            print('Deposit Accepted')
+    
+    def withdraw(self,value):
+        if value>=0:
+            if value<=self.balance:
+                self.balance-=value
+                print('Withdrawal Accepted')
+            else:
+                print('Funds Unavailable!')
